@@ -1,9 +1,9 @@
 const express = require('express');
 const mysql = require('mysql');
-require('dotenv').config();  // Cargar variables de entorno
+require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || registro1.onrender.com;  // Usa el puerto proporcionado por Render o 3000 en desarrollo
+const PORT = process.env.PORT || 3000;
 
 // Configurar una ruta básica
 app.get('/', (req, res) => {
@@ -18,6 +18,7 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
+// Manejar errores de conexión
 connection.connect((err) => {
   if (err) {
     console.error('Error al conectar a la base de datos: ', err);
@@ -27,6 +28,11 @@ connection.connect((err) => {
 });
 
 // Escuchar en el puerto
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
+
+// Manejo de errores del servidor
+server.on('error', (error) => {
+  console.error('Error en el servidor: ', error);
 });
