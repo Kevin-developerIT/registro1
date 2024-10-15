@@ -1,23 +1,32 @@
-require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const registerRoutes = require('./routes/register');
+const mysql = require('mysql');
+require('dotenv').config();  // Cargar variables de entorno
 
-
-
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
-// Rutas
-app.use('/register', registerRoutes);
-
-const express = require('express');
 const app = express();
+const PORT = process.env.PORT || registro1.onrender.com;  // Usa el puerto proporcionado por Render o 3000 en desarrollo
 
-// Configuración del puerto (Render proporciona automáticamente el puerto)
-const PORT = process.env.PORT || 3000;
+// Configurar una ruta básica
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente');
+});
 
+// Conectar a la base de datos MySQL
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error('Error al conectar a la base de datos: ', err);
+    process.exit(1);  // Cierra la aplicación si no puede conectar
+  }
+  console.log('Conexión a la base de datos MySQL exitosa');
+});
+
+// Escuchar en el puerto
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
