@@ -32,7 +32,7 @@ app.post('/register', async (req, res) => {
   const { nombre, empresa, confirmacion, 'g-recaptcha-response': recaptchaToken } = req.body;
 
   // Validar reCAPTCHA
-  const recaptchaSecret = '6LcSpV0qAAAAAF2jG7P8cwsldIOx-94HBMR4E9nk';
+  const recaptchaSecret = '6LesOV0qAAAAAJTPEVS-okMMAepdfwTF32654K9y';
   const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaToken}`;
 
   try {
@@ -60,5 +60,5 @@ app.post('/register', async (req, res) => {
 
 // Iniciar el servidor
 app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:3000`);
+  console.log(`Servidor corriendo en https://registro1.onrender.com`);
 });

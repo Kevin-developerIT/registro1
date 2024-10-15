@@ -27,5 +27,3 @@ document.getElementById('registroForm').addEventListener('submit', function(even
   });
   
 
-
-  
