@@ -38,8 +38,10 @@ app.get('/verificar-conexion', (req, res) => {
     });
 });
 
-// Escucha en el puerto asignado por Render o 3000 en desarrollo local
+
+// Usar el puerto asignado por Render o 3000 para desarrollo local
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
