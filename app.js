@@ -1,33 +1,38 @@
+const express = require('express');
 const mysql = require('mysql');
+require('dotenv').config();
 
-let connection;
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-function handleConnection() {
-  connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-  });
+// Configurar una ruta básica
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente');
+});
 
-  connection.connect((err) => {
-    if (err) {
-      console.error('Error al conectar a la base de datos: ', err);
-      setTimeout(handleConnection, 2000); // Intenta reconectar después de 2 segundos
-    } else {
-      console.log('Conexión a la base de datos MySQL exitosa');
-    }
-  });
+// Conectar a la base de datos MySQL
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
 
-  connection.on('error', (err) => {
-    console.error('Error en la conexión: ', err);
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      handleConnection(); // Reconectar si la conexión se pierde
-    } else {
-      throw err; // Lanza otro tipo de errores
-    }
-  });
-}
+// Manejar errores de conexión
+connection.connect((err) => {
+  if (err) {
+    console.error('Error al conectar a la base de datos: ', err);
+    process.exit(1);  // Cierra la aplicación si no puede conectar
+  }
+  console.log('Conexión a la base de datos MySQL exitosa');
+});
 
-// Iniciar la conexión
-handleConnection();
+// Escuchar en el puerto
+const server = app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
+
+// Manejo de errores del servidor
+server.on('error', (error) => {
+  console.error('Error en el servidor: ', error);
+});
