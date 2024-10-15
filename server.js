@@ -1,50 +1,65 @@
-require('dotenv').config();
 const express = require('express');
-const mysql = require('mysql');
 const bodyParser = require('body-parser');
-const app = express();
+const mysql = require('mysql');
+const axios = require('axios');
+const path = require('path');
 
-// Configuración de body-parser para manejar datos POST
+const app = express();
+const port = process.env.PORT || 3000;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public'))); // Sirve archivos estáticos
 
-// Conexión a la base de datos MySQL
+// Conectar a la base de datos MySQL en Hostinger
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+  host: '193.203.166.181', // Cambia esto por el host de tu base de datos en Hostinger
+  user: 'u943042028_admink',
+  password: '#I5f+c^[;U',
+  database: 'u943042028_registros'
 });
+
 
 db.connect((err) => {
-    if (err) throw err;
-    console.log('Conectado a la base de datos MySQL');
+  if (err) {
+    console.error('Error conectando a la base de datos:', err);
+  } else {
+    console.log('Conexión exitosa a la base de datos MySQL ');
+  }
 });
 
-// Rutas
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
-});
+// Ruta para procesar el formulario de registro
+app.post('/register', async (req, res) => {
+  const { nombre, empresa, confirmacion, 'g-recaptcha-response': recaptchaToken } = req.body;
 
-app.post('/register', (req, res) => {
-    const { nombre, empresa, confirmacion } = req.body;
+  // Validar reCAPTCHA
+  const recaptchaSecret = '6LesOV0qAAAAAJTPEVS-okMMAepdfwTF32654K9y';
+  const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaToken}`;
 
-    // Validación simple
-    if (!nombre || !empresa || !confirmacion) {
-        return res.status(400).send('Todos los campos son obligatorios.');
+  try {
+    const response = await axios.post(verifyUrl);
+    const { success } = response.data;
+
+    if (!success) {
+      return res.status(400).json({ message: 'Falló la validación reCAPTCHA.' });
     }
 
-    // Consulta SQL para insertar datos en la base de datos
-    const sql = 'INSERT INTO registros (nombre, empresa, confirmacion) VALUES (?, ?, ?)';
-    db.query(sql, [nombre, empresa, confirmacion], (err, result) => {
-        if (err) throw err;
-        console.log('Registro exitoso:', result);
-        res.send('Registro enviado con éxito.');
+    // Insertar datos en la base de datos
+    const query = 'INSERT INTO registros (nombre, empresa, confirmacion) VALUES (?, ?, ?)';
+    db.query(query, [nombre, empresa, confirmacion], (err, result) => {
+      if (err) {
+        console.error('Error al insertar datos:', err);
+        return res.status(500).json({ message: 'Error en el registro' });
+      }
+      res.status(200).json({ message: 'Registro exitoso' });
     });
+  } catch (error) {
+    console.error('Error al validar reCAPTCHA:', error);
+    res.status(500).json({ message: 'Error al validar reCAPTCHA' });
+  }
 });
 
-// Iniciar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log(`Servidor corriendo en https://registro1.onrender.com`);
 });
