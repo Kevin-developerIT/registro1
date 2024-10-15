@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Asistencia</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcSpV0qAAAAAF2jG7P8cwsldIOx-94HBMR4E9nk"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Formulario de Registro</h2>
+    <form id="registroForm" action="/register" method="POST">
+      
+      <!-- Campo Nombre -->
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre">
+      
+      <!-- Campo Empresa/Organización -->
+      <label for="empresa">Empresa u Organización:</label>
+      <input type="text" id="empresa" name="empresa" required placeholder="Ingresa tu empresa/organización">
+      
+      <!-- Confirmación de Asistencia -->
+      <label for="confirmacion">Confirmación de Asistencia:</label>
+      <select id="confirmacion" name="confirmacion" required>
+        <option value="1">Asistiré</option>
+        <option value="0">No asistiré</option>
+      </select>
+      
+      <!-- Google reCAPTCHA-->
+      <div class="g-recaptcha" data-sitekey="6LcSpV0qAAAAAF2jG7P8cwsldIOx-94HBMR4E9nk"></div> 
+      
+      <button type="submit">Enviar</button>
+    </form>
+    
+    <!-- Mensajes de validación -->
+    <p id="mensajeError" style="color:red;"></p>
+  </div>
+
+  <script src="scripts.js"></script>
+
+  
+</body>
+</html>
