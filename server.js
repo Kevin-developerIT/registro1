@@ -1,11 +1,10 @@
-// index.js o app.js
 const express = require('express');
+const cors = require('cors'); // Asegúrate de tener esta línea
 const app = express();
-const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 
 // Middleware
-app.use(cors()); // Permitir solicitudes CORS desde el frontend
+app.use(cors()); // Agrega esta línea para habilitar CORS
 app.use(express.json()); // Middleware para analizar JSON en las solicitudes
 
 // Rutas
