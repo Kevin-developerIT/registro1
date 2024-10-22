@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../db');
 
 // Registro de usuario
 exports.registerUser = (req, res) => {
