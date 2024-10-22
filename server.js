@@ -5,6 +5,17 @@ const nodemailer = require('nodemailer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const cors = require('cors');
+
+// Permitir todas las solicitudes CORS (útil para desarrollo)
+app.use(cors());
+
+// O, si prefieres permitir solo un origen específico, haz esto:
+app.use(cors({
+    origin: 'https://premiacion-registro.hgroup.consulting'
+}));
+
+
 app.use(bodyParser.json()); // Para analizar JSON en el cuerpo de la solicitud
 
 // Endpoint para registrar usuarios
