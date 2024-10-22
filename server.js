@@ -1,19 +1,18 @@
+// index.js o app.js
 const express = require('express');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
+const app = express();
+const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 
-dotenv.config();
-const app = express();
-
 // Middleware
-app.use(bodyParser.json());
+app.use(cors()); // Permitir solicitudes CORS desde el frontend
+app.use(express.json()); // Middleware para analizar JSON en las solicitudes
 
 // Rutas
-app.use('/api/users', userRoutes);
+app.use('/api', userRoutes);
 
-// Configuración del puerto
+// Iniciar el servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
