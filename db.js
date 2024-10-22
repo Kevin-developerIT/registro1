@@ -1,32 +1,29 @@
 const mysql = require('mysql');
-let connection;
 
-function handleDisconnect() {
-    connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE
-    });
+// Crear un pool de conexiones
+const pool = mysql.createPool({
+    connectionLimit: 10, // Puedes ajustar el límite según sea necesario
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
+});
 
-    connection.connect(function(err) {
-        if (err) {
-            console.log('Error al conectar a la base de datos:', err);
-            setTimeout(handleDisconnect, 2000); // Intentar reconectar después de 2 segundos
-        }
-    });
-
-    connection.on('error', function(err) {
-        console.log('Error en la conexión a la base de datos:', err);
+pool.getConnection((err, connection) => {
+    if (err) {
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            // Si la conexión se pierde, se vuelve a reconectar
-            handleDisconnect();
-        } else {
-            throw err;
+            console.error('Conexión con la base de datos cerrada.');
         }
-    });
-}
+        if (err.code === 'ER_CON_COUNT_ERROR') {
+            console.error('Demasiadas conexiones en la base de datos.');
+        }
+        if (err.code === 'ECONNREFUSED') {
+            console.error('Conexión a la base de datos rechazada.');
+        }
+    }
 
-handleDisconnect();
+    if (connection) connection.release();
+    return;
+});
 
-module.exports = connection;
+module.exports = pool;
