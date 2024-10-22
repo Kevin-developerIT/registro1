@@ -1,13 +1,13 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const dotenv = require('dotenv');
-dotenv.config(); // Cargar las variables de entorno desde el archivo .env
+dotenv.config();
 
 // Crear conexión a la base de datos
 const db = mysql.createConnection({
-    host: process.env.DB_HOST, // Asegúrate de definir estas variables en tu .env
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
 });
 
 // Conectar a la base de datos
@@ -20,6 +20,4 @@ db.connect((err) => {
 });
 
 module.exports = db;
-
-
 
