@@ -1,27 +1,32 @@
 const mysql = require('mysql');
+let connection;
 
-// Crea una conexión a la base de datos
-const db = mysql.createConnection({
-    host: process.env.DB_HOST, // Asegúrate de que esto sea correcto
-    user: process.env.DB_USER, // Tu usuario de la base de datos
-    password: process.env.DB_PASS, // Tu contraseña de la base de datos
-    database: process.env.DB_NAME // El nombre de tu base de datos
-});
+function handleDisconnect() {
+    connection = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE
+    });
 
-// Conectar a la base de datos
-db.connect((err) => {
-    if (err) {
-        console.error('Error al conectar a la base de datos:', err);
-        return;
-    }
-    console.log('Conectado a la base de datos.');
-});
+    connection.connect(function(err) {
+        if (err) {
+            console.log('Error al conectar a la base de datos:', err);
+            setTimeout(handleDisconnect, 2000); // Intentar reconectar después de 2 segundos
+        }
+    });
 
-// Manejo de errores de conexión
-db.on('error', (err) => {
-    console.error('Error en la conexión a la base de datos:', err);
-});
+    connection.on('error', function(err) {
+        console.log('Error en la conexión a la base de datos:', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            // Si la conexión se pierde, se vuelve a reconectar
+            handleDisconnect();
+        } else {
+            throw err;
+        }
+    });
+}
 
-// Exportar la conexión para usarla en otras partes del servidor
-module.exports = db;
+handleDisconnect();
 
+module.exports = connection;
