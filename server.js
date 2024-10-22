@@ -35,7 +35,15 @@ app.post('/register', (req, res) => {
             from: process.env.EMAIL_USER,
             to: correo,
             subject: 'Confirmación de registro',
-            text: `Hola ${nombre},\n\nGracias por registrarte. Tu registro ha sido exitoso.`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                    <h2 style="text-align: center; color: #333;">¡Gracias por registrarte, ${nombre}!</h2>
+                    <img src="URL_DE_TU_IMAGEN" alt="Imagen de Confirmación" style="width: 100%; height: auto; border-radius: 5px;"/>
+                    <p style="color: #555;">Tu registro ha sido exitoso. Apreciamos que te hayas unido a nosotros.</p>
+                    <p style="color: #555;">Si tienes alguna pregunta, no dudes en contactarnos.</p>
+                    <p style="text-align: center; color: #777;">Saludos cordiales,<br/>El equipo</p>
+                </div>
+            `,
         };
 
         transporter.sendMail(mailOptions, (error) => {
@@ -54,3 +62,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
