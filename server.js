@@ -16,6 +16,30 @@ app.use(cors({
 }));
 
 
+const nodemailer = require('nodemailer');
+
+// Configurar el transporter de Nodemailer
+const transporter = nodemailer.createTransport({
+  host: 'imap.gmail.com', // Servidor SMTP (como Gmail o un servidor de correo propio)
+  port: 587,                           // Puerto SMTP (587 o 465)
+  secure: false,                       // Si es 'true', se utiliza SSL (465), si es 'false' se utiliza TLS (587)
+  auth: {
+    user: process.env.EMAIL_USER,      // Tu dirección de correo
+    pass: process.env.EMAIL_PASS       // La contraseña de tu correo (usa variables de entorno por seguridad)
+  }
+});
+
+// Verifica la conexión del transporte
+transporter.verify(function(error, success) {
+  if (error) {
+    console.log('Error al conectar con el servidor SMTP:', error);
+  } else {
+    console.log('Servidor de correo listo para enviar mensajes');
+  }
+});
+
+
+
 app.use(bodyParser.json()); // Para analizar JSON en el cuerpo de la solicitud
 
 // Endpoint para registrar usuarios
