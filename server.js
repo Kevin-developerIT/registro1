@@ -68,7 +68,7 @@ app.post('/register', (req, res) => {
 
             <!-- Imagen del evento -->
             <a href="https://maps.app.goo.gl/1FcABA5NdDyUn1wh8" target="_blank"
-            <img src="https://coctel-cena-registro.hgroup.consulting/img/invitacion.jpg" alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
+            <img src="https://hgroup.consulting/wp-content/uploads/2024/10/invitacion.jpg" alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
             </a>
             <!-- Localización del evento -->
             <h3 style="text-align: center; color: #333;">Ubicación del encuentro</h3>
