@@ -67,7 +67,7 @@ app.post('/register', (req, res) => {
             <p style="color: #555;">Tu registro ha sido exitoso. Apreciamos que te hayas unido a nosotros.</p>
 
             <!-- Imagen del evento -->
-            <img src="https://imgur.com/eIT8N40" alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
+            <img src="https://lh3.googleusercontent.com/chat_attachment/AP1Ws4sZ_BK3I26VdYJ7xSaCx92qNVBasJEO9BtxPeMWRE9jB4e9tD6uUvFqsIAmUqUtMCEs6WtZKQMeBb0DMFjKWniXiSkx9uBxo4ZtnB6naxlyQjTSOAxgDSqi4SFe10RuBJwmM-IPzLsGb6wbx4J5hakK94Y3iw5b1C1gPzjGkX_dDhUe1qx4x36XQDpq-6DczWzN2JGMGA73R0VenaBl5EborSoxUfsDe9CS9p3C6BgmA8OC0biYc9liD7q0TjARamQ_rYOOvrG4cLBivz6Af6B0ioP-_TjdL2bDLGJFqf1OXDyemzdLBuY5CMMNhHKbet0=w512" alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
 
             <!-- Localización del evento -->
             <h3 style="text-align: center; color: #333;">Ubicación del encuentro</h3>
