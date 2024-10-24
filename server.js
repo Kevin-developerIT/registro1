@@ -60,7 +60,7 @@ app.post('/register', (req, res) => {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: correo,
-            subject: 'Confirmación de registro ',
+            subject: 'Confirmación de registro - CENA Fundación Alsea',
             html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
             <h2 style="text-align: center; color: #333;">¡Gracias por registrarte, ${nombre}!</h2>
