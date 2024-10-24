@@ -67,7 +67,7 @@ app.post('/register', (req, res) => {
             <p style="color: #555;">Tu registro ha sido exitoso. Apreciamos que te hayas unido a nosotros.</p>
 
             <!-- Imagen del evento -->
-            <img src="https://drive.google.com/uc?id=1ifSrSzBalE_tGWThctpGufzBRr2OzOFv alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
+            <img src="https://hgroup.consulting/wp-content/uploads/2024/10/Invitaciones.png alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
 
             <!-- Localización del evento -->
             <h3 style="text-align: center; color: #333;">Ubicación del encuentro</h3>
