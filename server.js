@@ -12,7 +12,7 @@ app.use(cors());
 
 // O, si prefieres permitir solo un origen específico, haz esto:
 app.use(cors({
-    origin: 'https://coctel-cena-registro.hgroup.consulting/'
+    origin: 'https://coctel-cena-registro.hgroup.consulting'
 }));
 
 
