@@ -60,14 +60,14 @@ app.post('/register', (req, res) => {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: correo,
-            subject: 'Confirmación de registro - CENA Fundación Alsea',
+            subject: 'Confirmación de registro - Cena de celebración Fundación Alsea',
             html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
             <h2 style="text-align: center; color: #333;">¡Gracias por registrarte, ${nombre}!</h2>
             <p style="color: #555;">Tu registro ha sido exitoso. Apreciamos que te hayas unido a nosotros.</p>
 
             <!-- Imagen del evento -->
-            <img src="https://coctel-cena-registro.hgroup.consulting/img/invitacion.png alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
+            <img src="https://drive.google.com/file/d/1ifSrSzBalE_tGWThctpGufzBRr2OzOFv/view?usp=sharing alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
 
             <!-- Localización del evento -->
             <h3 style="text-align: center; color: #333;">Ubicación del encuentro</h3>
