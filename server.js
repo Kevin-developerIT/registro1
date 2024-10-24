@@ -67,9 +67,9 @@ app.post('/register', (req, res) => {
             <p style="color: #555;">Tu registro ha sido exitoso. Apreciamos que te hayas unido a nosotros.</p>
 
             <!-- Imagen del evento -->
-            <a href="https://maps.app.goo.gl/1FcABA5NdDyUn1wh8" target="_blank"
-            <img src="https://hgroup.consulting/wp-content/uploads/2024/10/Invitaciones.png" alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
-            </a>
+            
+            <img src="https://hgroup.consulting/wp-content/uploads/2024/10/invitacion.jpg" alt="Imagen del evento" style="width: 100%; height: auto; border-radius: 5px;">
+            
             <!-- Localización del evento -->
             <h3 style="text-align: center; color: #333;">Ubicación del encuentro</h3>
             <p style="text-align: center; color: #555;">Consulta el siguiente enlace para la ubicación:</p>
